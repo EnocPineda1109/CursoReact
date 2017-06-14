@@ -1,0 +1,28 @@
+function handleClick(name, event) {
+	return this.setState({
+		name: name.split('').reverse().join(''),
+	});
+}
+
+
+class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = { name: 'Platzi' };
+		this.handleClick = handleClick.bind(this, this.state.name);
+	}
+
+	componentWillUpdate(nextProps, nextState) {
+		if (nextState.name !== this.state.name) {
+			this.handleClick = handleClick.bind(this, nextState.name);
+		}
+	}
+
+	render() {
+    return (
+      <button onClick={this.handleClick}>
+        Click me {this.state.name}!
+      </button>
+    );
+  }
+}

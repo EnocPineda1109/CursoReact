@@ -1,0 +1,28 @@
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = { name: 'platzi' };
+		this.cache = {};
+	}
+	handleClick(name) {
+		return event => {
+			this.setState({
+				name: name.split('').reverse().join('')
+			});
+		};
+	}
+	render() {
+		let handleClick = this.cache[this.state.name];
+
+		if (!handleClick) {
+			handleClick = this.handleClick(this.state.name);
+			this.cache[this.state.name] = handleClick;
+		}
+
+		return (
+			<button onClick={handleClick}>
+				Click me {this.state.name}!
+			<button>
+		);
+	}
+}
